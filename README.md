@@ -1,5 +1,3 @@
-Perfecto. Comenzaré una investigación detallada sobre las variables difusas relevantes para construir un sistema experto que evalúe el riesgo de infarto de miocardio. Incluiré variables biomédicas, de estilo de vida, genéticas, psicológicas y poblacionales, junto con su análisis de impacto, rangos lingüísticos difusos, interacciones entre variables y reglas difusas preliminares. Usaré fuentes científicas confiables en español e inglés. Te avisaré tan pronto tenga lista la información.
-
 # Evaluación Difusa del Riesgo de Infarto de Miocardio: Variables y Reglas Propuestas
 
 ## Introducción

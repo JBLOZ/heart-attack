@@ -407,3 +407,98 @@ Cabe enfatizar que, si bien la lógica difusa ayuda a manejar la incertidumbre y
 - Pérez de Isla L et al. *High-Density Lipoprotein Cholesterol and Cardiovascular Risk Reduction, Promises and Realities.* Rev Esp Cardiol, 2012. (Artículo que resume impacto de HDL en riesgo) ([High-Density Lipoprotein and Cardiovascular Risk Reduction, Promises and Realities - Revista Española de Cardiología (English Edition)](https://www.revespcardiol.org/en-high-density-lipoprotein-cardiovascular-risk-reduction-articulo-S1885585711006475#:~:text=Lipid%20Research%20Clinics%20Coronary%20Primary,4559%20men)).
 
 (Se incluyeron referencias en inglés y español, priorizando fuentes médicas confiables y actuales, para respaldar cada afirmación clave a lo largo del texto.)
+
+
+
+
+# Modelado de Variables Biomédicas y de Estilo de Vida
+
+Este repositorio describe la modelización de variables biomédicas, de estilo de vida, genéticas y psicológicas mediante funciones de pertenencia difusas. Se utilizan funciones trapezoidales, triangulares y, opcionalmente, sigmoides para representar la transición entre diferentes categorías de riesgo.
+
+## 1. Variables Biomédicas
+
+### a) **Presión arterial (mmHg)**
+- **Normal (90–120/<80)**:  
+  - Sistólica: Función trapezoidal con vértices en (90, 1) y (120, 0).  
+  - Diastólica: Función trapezoidal con (<80, 1).
+- **Elevada (121–139/80–89)**: Función triangular con vértices en (120, 0), (130, 1), (139, 0).
+- **Alta (≥140/≥90)**: Función trapezoidal ascendente desde 140 (sistólica) y 90 (diastólica).  
+  *Justificación*: Modela una transición progresiva con solapamiento entre estados.
+
+### b) **Colesterol LDL (mg/dL)**
+- **Bajo (<100)**: Trapezoidal con vértices en (0, 1), (80, 1), (100, 0).
+- **Moderado (100–159)**: Triangular con vértices en (90, 0), (130, 1), (159, 0).
+- **Alto (≥160)**: Trapezoidal ascendente desde 150.  
+  *Justificación*: Valores cercanos a 150 ya implican riesgo cardiovascular.
+
+### c) **Colesterol HDL (mg/dL)**
+- **Bajo (<40♂/<50♀)**: Trapezoidal descendente (0,1) a (40♂/50♀, 0).
+- **Medio (40–60)**: Triangular con vértices en (30♂/40♀, 0), (50, 1), (60, 0).
+- **Alto (>60)**: Trapezoidal ascendente desde 55.  
+  *Justificación*: HDL >60 mg/dL es cardioprotector con efecto no lineal.
+
+### d) **Glucemia en ayunas (mg/dL)**
+- **Normal (<100)**: Trapezoidal con vértices en (70, 1), (95, 1), (100, 0).
+- **Elevada (100–125)**: Triangular con (95, 0), (112.5, 1), (125, 0).
+- **Muy alta (≥126)**: Trapezoidal ascendente desde 120.  
+  *Justificación*: Prediabetes (100–125 mg/dL) es una zona de transición clave.
+
+### e) **IMC (kg/m²)**
+- **Normal (18.5–24.9)**: Trapezoidal con vértices en (18.5, 1), (24.9, 1).
+- **Sobrepeso (25–29.9)**: Triangular con vértices en (24, 0), (27, 1), (29.9, 0).
+- **Obesidad (≥30)**: Trapezoidal ascendente desde 29.  
+  *Justificación*: El IMC ≥30 es un umbral médico claro.
+
+### f) **Frecuencia cardíaca en reposo (latidos/min)**
+- **Baja (<60)**: Trapezoidal descendente (40, 1) a (60, 0).
+- **Normal (60–80)**: Triangular con (55, 0), (70, 1), (85, 0).
+- **Alta (>80)**: Trapezoidal ascendente desde 75.  
+  *Justificación*: Taquicardia (>80 lpm) está asociada a estrés cardiovascular.
+
+## 2. Variables de Estilo de Vida
+
+### a) **Actividad física (min/semana)**
+- **Baja (<60)**: Trapezoidal descendente (0, 1) a (60, 0).
+- **Moderada (60–150)**: Triangular con (50, 0), (105, 1), (150, 0).
+- **Alta (≥150)**: Trapezoidal ascendente desde 140.  
+  *Justificación*: OMS recomienda ≥150 min/semana para salud cardiovascular.
+
+### b) **Calidad de la dieta**
+- **Pobre**: Triangular con (0, 1), (5, 0).
+- **Moderada**: Triangular con (3, 0), (5, 1), (7, 0).
+- **Saludable**: Triangular con (5, 0), (7, 1), (10, 1).  
+  *Justificación*: Escala ordinal basada en adherencia a dietas saludables.
+
+### c) **Tabaquismo (cigarrillos/día)**
+- **Ninguno**: Trapezoidal (0, 1) a (1, 0).
+- **Leve (<5)**: Triangular con (0, 0), (2.5, 1), (5, 0).
+- **Intenso (≥5)**: Trapezoidal ascendente desde 4.  
+  *Justificación*: ≥5 cigarrillos/día implica daño endotelial significativo.
+
+### d) **Alcohol (unidades/día)**
+- **Nulo/Bajo (0–1)**: Trapezoidal (0, 1) a (1, 0).
+- **Moderado (1–2)**: Triangular con (0.5, 0), (1.5, 1), (2.5, 0).
+- **Alto (>2)**: Trapezoidal ascendente desde 2.  
+  *Justificación*: >2 unidades/día aumenta riesgo de hipertensión.
+
+## 3. Variables Genéticas y Psicológicas
+
+### a) **Historia familiar**
+- **Ninguna**: Trapezoidal (0, 1) en ausencia de antecedentes.
+- **Moderada**: Triangular para antecedentes no prematuros (>65 años).
+- **Fuerte**: Trapezoidal ascendente si antecedentes prematuros (<55♂/<65♀).  
+  *Justificación*: La herencia influye en el riesgo cardiovascular.
+
+### b) **Estrés y Ansiedad**
+- **Bajo**: Trapezoidal en el 0–30% de la escala.
+- **Moderado**: Triangular en 30–70%.
+- **Alto**: Trapezoidal ascendente en >70%.  
+  *Justificación*: Escalas como PSS-10 o GAD-7 reflejan grados de severidad.
+
+## 📌 **Elección de Funciones**
+- **Triangulares**: Para términos intermedios (ej. "moderado", "sobrepeso").
+- **Trapezoidales**: Para extremos (ej. "bajo", "alto") o umbrales médicos.
+- **Sigmoidales**: Opcionales para efectos no lineales (ej. LDL >160 mg/dL).
+
+
+

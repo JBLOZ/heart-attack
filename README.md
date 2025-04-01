@@ -1,9 +1,9 @@
 # Factores:
 Factores de riesgo de enfermedades cardíacas
 1. Factores de riesgo no modificables
-\n•	Edad
-•	Sexo
-•	Predisposición genética y antecedentes familiares
+  •	Edad
+  •	Sexo
+  •	Predisposición genética y antecedentes familiares
 2. Factores de riesgo modificables
 -Estilo de vida
 •	Tabaquismo

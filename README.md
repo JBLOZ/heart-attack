@@ -278,7 +278,7 @@ A modo de **resumen tabular**, se presenta a continuación una tabla con ejemplo
         ](https://pmc.ncbi.nlm.nih.gov/articles/PMC4612342/#:~:text=depressive%20symptoms%20are%20also%20at,factors%20such%20as%20reduced%20left))                         |
 | **Edad**                  | años                                 | Joven (<40), Mediana (40–59), Avanzada (60–79), Muy avanzada (≥80) |
 | **Sexo**                  | masculino/femenino                   | (Usado como condicional binario en reglas, más que difuso) |
-| **Etnia/Región**          | (descriptiva)                        | Bajo riesgo, Medio, Alto (según grupo étnico o país) ([Guías europeas de prevención cardiovascular 2021](https://mgyf.org/guias-europeas-de-prevencion-cardiovascular-2021/#:~:text=Las%20regiones%20europeas%20se%20dividen,Anteriormente%2C%20con%20el)) |
+| **Etnia/Región**          | (descriptiva)                        | Bajo riesgo, Medio, Alto (según grupo étnico o país) [Guías europeas de prevención cardiovascular 2021](https://mgyf.org/guias-europeas-de-prevencion-cardiovascular-2021/#:~:text=Las%20regiones%20europeas%20se%20dividen,Anteriormente%2C%20con%20el) |
 
 *Tabla 1: Variables de entrada propuestas con sus posibles términos lingüísticos difusos y rangos de referencia.* 
 

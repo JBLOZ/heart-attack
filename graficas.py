@@ -65,25 +65,25 @@ plt.ylabel('Número de personas')
 plt.xticks(bins.astype(int))
 plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.tight_layout()
-plt.savefig('docs/edad.png')
+plt.savefig('docs/edad.svg')
 plt.close()
 
 # 2. Sexo (círculo)
 labels = ['Femenino', 'Masculino']
 counts = df['Sexo_num'].value_counts().sort_index()
-pie_bonito(labels, counts, [palette[0], palette[1]], 'Distribución por Sexo', 'docs/sexo.png')
+pie_bonito(labels, counts, [palette[0], palette[1]], 'Distribución por Sexo', 'docs/sexo.svg')
 
 
 # 3. Diabetes (círculo)
 diab_labels = ['No', 'Tal vez', 'Sí']
 diab_counts = [sum(df['Diabetes'] == 0.0), sum(df['Diabetes'] == 0.5), sum(df['Diabetes'] == 1.0)]
-pie_bonito(diab_labels, diab_counts, [palette[2], palette[3], palette[4]], 'Distribución de Diabetes', 'docs/diabetes.png')
+pie_bonito(diab_labels, diab_counts, [palette[2], palette[3], palette[4]], 'Distribución de Diabetes', 'docs/diabetes.svg')
 
 
 # 4. Hipertensión (círculo)
 hip_labels = ['No', 'Tal vez', 'Sí']
 hip_counts = [sum(df['Hipertension'] == 0.0), sum(df['Hipertension'] == 0.5), sum(df['Hipertension'] == 1.0)]
-pie_bonito(hip_labels, hip_counts, [palette[5], palette[6], palette[7]], 'Distribución de Hipertensión', 'docs/hipertension.png')
+pie_bonito(hip_labels, hip_counts, [palette[5], palette[6], palette[7]], 'Distribución de Hipertensión', 'docs/hipertension.svg')
 
 
 # 5. IMC
@@ -98,7 +98,7 @@ plt.ylabel('Número de personas')
 plt.xticks(bins.round(0).astype(int))
 plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.tight_layout()
-plt.savefig('docs/imc.png')
+plt.savefig('docs/imc.svg')
 plt.close()
 
 # 6. IMC normalizado
@@ -113,7 +113,7 @@ plt.ylabel('Número de personas')
 plt.xticks(bins)
 plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.tight_layout()
-plt.savefig('docs/imc_normalizado.png')
+plt.savefig('docs/imc_normalizado.svg')
 plt.close()
 
 # 7. Presión arterial sistólica
@@ -128,7 +128,7 @@ plt.ylabel('Número de personas')
 plt.xticks(bins.round(0).astype(int))
 plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.tight_layout()
-plt.savefig('docs/presion_arterial.png')
+plt.savefig('docs/presion_arterial.svg')
 plt.close()
 
 # 8. Colesterol LDL
@@ -143,7 +143,7 @@ plt.ylabel('Número de personas')
 plt.xticks(bins.round(0).astype(int))
 plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.tight_layout()
-plt.savefig('docs/colesterol_ldl.png')
+plt.savefig('docs/colesterol_ldl.svg')
 plt.close()
 
 # 9. Colesterol HDL
@@ -158,7 +158,7 @@ plt.ylabel('Número de personas')
 plt.xticks(bins.round(0).astype(int))
 plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.tight_layout()
-plt.savefig('docs/colesterol_hdl.png')
+plt.savefig('docs/colesterol_hdl.svg')
 plt.close()
 
 # 10. Glucemia
@@ -173,7 +173,7 @@ plt.ylabel('Número de personas')
 plt.xticks(bins.round(0).astype(int))
 plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.tight_layout()
-plt.savefig('docs/glucemia.png')
+plt.savefig('docs/glucemia.svg')
 plt.close()
 
 # 11. Azúcar en sangre (alias)
@@ -188,7 +188,7 @@ plt.ylabel('Número de personas')
 plt.xticks(bins.round(0).astype(int))
 plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.tight_layout()
-plt.savefig('docs/azucar_sangre.png')
+plt.savefig('docs/azucar_sangre.svg')
 plt.close()
 
 # 12. Frecuencia cardíaca en reposo
@@ -203,19 +203,19 @@ plt.ylabel('Número de personas')
 plt.xticks(bins.round(0).astype(int))
 plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.tight_layout()
-plt.savefig('docs/frecuencia_cardiaca.png')
+plt.savefig('docs/frecuencia_cardiaca.svg')
 plt.close()
 
 # 13. Historia familiar hipertensión (círculo)
 hist_hip_labels = ['No', 'Tal vez', 'Sí']
 hist_hip_counts = [sum(df['FamHyper'] == 0.0), sum(df['FamHyper'] == 0.5), sum(df['FamHyper'] == 1.0)]
-pie_bonito(hist_hip_labels, hist_hip_counts, [palette[8], palette[9], palette[0]], 'Historia Familiar de Hipertensión', 'docs/historia_hipertension.png')
+pie_bonito(hist_hip_labels, hist_hip_counts, [palette[8], palette[9], palette[0]], 'Historia Familiar de Hipertensión', 'docs/historia_hipertension.svg')
 
 
 # 14. Historia familiar infarto (círculo)
 hist_inf_labels = ['No', 'Tal vez', 'Sí']
 hist_inf_counts = [sum(df['FamInfarct'] == 0.0), sum(df['FamInfarct'] == 0.5), sum(df['FamInfarct'] == 1.0)]
-pie_bonito(hist_inf_labels, hist_inf_counts, [palette[1], palette[2], palette[3]], 'Historia Familiar de Infarto', 'docs/historia_infarto.png')
+pie_bonito(hist_inf_labels, hist_inf_counts, [palette[1], palette[2], palette[3]], 'Historia Familiar de Infarto', 'docs/historia_infarto.svg')
 
 
 # 15. Estrés (%)
@@ -230,7 +230,7 @@ plt.ylabel('Número de personas')
 plt.xticks(bins)
 plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.tight_layout()
-plt.savefig('docs/estres.png')
+plt.savefig('docs/estres.svg')
 plt.close()
 
 # 16. Ansiedad (%)
@@ -245,7 +245,7 @@ plt.ylabel('Número de personas')
 plt.xticks(bins)
 plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.tight_layout()
-plt.savefig('docs/ansiedad.png')
+plt.savefig('docs/ansiedad.svg')
 plt.close()
 
 # 17. Actividad física semanal (min)
@@ -260,7 +260,7 @@ plt.ylabel('Número de personas')
 plt.xticks(bins.round(0).astype(int))
 plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.tight_layout()
-plt.savefig('docs/actividad_fisica.png')
+plt.savefig('docs/actividad_fisica.svg')
 plt.close()
 
 # 18. Calidad de la dieta
@@ -275,7 +275,7 @@ plt.ylabel('Número de personas')
 plt.xticks(bins)
 plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.tight_layout()
-plt.savefig('docs/calidad_dieta.png')
+plt.savefig('docs/calidad_dieta.svg')
 plt.close()
 
 # 19. Consumo de grasas saturadas
@@ -290,7 +290,7 @@ plt.ylabel('Número de personas')
 plt.xticks(bins.round(0).astype(int))
 plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.tight_layout()
-plt.savefig('docs/grasas_saturadas.png')
+plt.savefig('docs/grasas_saturadas.svg')
 plt.close()
 
 # 20. Consumo de bebidas azucaradas
@@ -305,7 +305,7 @@ plt.ylabel('Número de personas')
 plt.xticks(bins.round(0).astype(int))
 plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.tight_layout()
-plt.savefig('docs/bebidas_azucaradas.png')
+plt.savefig('docs/bebidas_azucaradas.svg')
 plt.close()
 
 # 21. Consumo de alcohol
@@ -320,6 +320,6 @@ plt.ylabel('Número de personas')
 plt.xticks(bins.round(0).astype(int))
 plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.tight_layout()
-plt.savefig('docs/alcohol.png')
+plt.savefig('docs/alcohol.svg')
 plt.close()
 

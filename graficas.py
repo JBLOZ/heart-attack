@@ -307,3 +307,19 @@ plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.tight_layout()
 plt.savefig('docs/bebidas_azucaradas.png')
 plt.close()
+
+# 21. Consumo de alcohol
+plt.figure(figsize=(7,5))
+bins = np.linspace(df['Alcohol_wk'].min(), df['Alcohol_wk'].max(), 11)
+n, bins, patches = plt.hist(df['Alcohol_wk'], bins=bins, edgecolor='black')
+for i, patch in enumerate(patches):
+    patch.set_facecolor(palette[i % len(palette)])
+plt.title('Consumo de Alcohol (veces/semana)')
+plt.xlabel('Veces por semana')
+plt.ylabel('Número de personas')
+plt.xticks(bins.round(0).astype(int))
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.tight_layout()
+plt.savefig('docs/alcohol.png')
+plt.close()
+

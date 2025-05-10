@@ -1,0 +1,27 @@
+imagenes_png
+├── biomedicos
+│   ├── azucar_sangre.png
+│   ├── colesterol_hdl.png
+│   ├── colesterol_ldl.png
+│   ├── frecuencia_cardiaca.png
+│   ├── glucemia.png
+│   ├── grasas_saturadas.png
+│   ├── imc.png
+│   └── presion_arterial.png
+├── edad y sexo
+│   ├── edad.png
+│   └── sexo.png
+├── enfermedades
+│   ├── diabetes.png
+│   └── hipertension.png
+├── familiar
+│   ├── historia_hipertension.png
+│   └── historia_infarto.png
+├── habitos de vida
+│   ├── actividad_fisica.png
+│   ├── alcohol.png
+│   ├── bebidas_azucaradas.png
+│   └── calidad_dieta.png
+└── psicologico
+    ├── ansiedad.png
+    └── estres.png

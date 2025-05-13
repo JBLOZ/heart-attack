@@ -20,6 +20,27 @@ def map_weekly_freq(cat: str) -> float:
         return float(nums[0])
     return 0.0
 
+def map_tobacco_consumption(cat: str) -> float:
+    """
+    Mapea categorías de consumo de tabaco a un valor numérico de 0 a 1
+    0 = No consume
+    0.1 = Casi nunca
+    0.5 = Consumo ocasional (1-2 veces por semana)
+    0.75 = Consumo moderado (3-4 veces por semana o diario pero menos de 5)
+    1.0 = Consumo intenso (diario 5+ cigarrillos)
+    """
+    if pd.isna(cat): return 0.0
+    cat = cat.lower()
+    if 'nunca' in cat: return 0.0
+    if 'casi nunca' in cat: return 0.1
+    if 'cada día' in cat and 'menos de 5' in cat: return 0.75
+    if 'cada día' in cat and '5 o más' in cat: return 1.0
+    if '1-2' in cat: return 0.5
+    if '3-4' in cat: return 0.75
+    # Para cualquier otro caso que indique consumo frecuente
+    if 'diario' in cat or 'a diario' in cat: return 0.9
+    return 0.0
+
 def parse_heart_rate(cat: str) -> float:
     if pd.isna(cat): return np.nan
     cat = cat.lower()
@@ -92,7 +113,7 @@ def compute_diet_quality(row: pd.Series) -> float:
     self_q = map_diet_quality(
         row['Calidad de dieta: ¿Cómo calificaría la calidad de su alimentación?']
     )
-    # 2) Frecuencias semanales de consumos “no saludables”
+    # 2) Frecuencias semanales de consumos "no saludables"
     salt    = map_weekly_freq(
         row['Uso de sal en la dieta: ¿Con qué frecuencia usa sal de adición para las comidas o ingiere snacks salados?']
     )
@@ -116,6 +137,38 @@ def compute_diet_quality(row: pd.Series) -> float:
     # 5) Combinar subjetivo y objetivo
     diet_q = 0.3 * self_q + 0.7 * (1 - unhealthy)
     return float(np.clip(diet_q, 0, 1))
+
+# ——————————————————————
+# Cálculo combinado de hábitos nocivos
+# ——————————————————————
+def compute_harmful_habits_index(row: pd.Series) -> float:
+    """
+    Calcula un índice de hábitos nocivos basado en:
+    1. Consumo de tabaco
+    2. Uso de cigarrillos electrónicos/cachimba
+    3. Consumo de estupefacientes
+    
+    Retorna un valor entre 0 (sin hábitos nocivos) y 1 (máximo de hábitos nocivos)
+    """
+    # 1) Consumo de tabaco (mayor peso: 50%)
+    tobacco = map_tobacco_consumption(
+        row['Frecuencia de consumo de tabaco: ¿Con qué frecuencia consume tabaco (cigarros, puros, etc.)?']
+    )
+    
+    # 2) Consumo de cigarrillos electrónicos/vapeo (peso: 30%)
+    vaping = map_tobacco_consumption(
+        row['Frecuencia de consumo de cigarrillos electrónicos o cachimba : ¿Con qué frecuencia utiliza dispositivos como cigarrillos electrónicos o cachimba?']
+    )
+    
+    # 3) Consumo de estupefacientes (peso: 20%)
+    drugs = map_tobacco_consumption(
+        row['Frecuencia de consumo de estupefacientes: ¿Con qué frecuencia consume sustancias psicoactivas?']
+    )
+    
+    # 4) Combinación ponderada
+    harmful_index = 0.5 * tobacco + 0.2 * vaping + 0.3 * drugs
+    
+    return float(np.clip(harmful_index, 0, 1))
 
 
 if __name__ == '__main__':
@@ -162,6 +215,22 @@ if __name__ == '__main__':
     df['Salt_wk']   = df[
         'Uso de sal en la dieta: ¿Con qué frecuencia usa sal de adición para las comidas o ingiere snacks salados?'
     ].map(map_weekly_freq)
+    
+    # Hábitos nocivos (tabaco, vapeo, estupefacientes)
+    df['Harmful_habits'] = df.apply(compute_harmful_habits_index, axis=1)
+    
+    # Crear columnas individuales para cada componente
+    df['Tobacco'] = df[
+        'Frecuencia de consumo de tabaco: ¿Con qué frecuencia consume tabaco (cigarros, puros, etc.)?'
+    ].map(map_tobacco_consumption)
+    
+    df['Vaping'] = df[
+        'Frecuencia de consumo de cigarrillos electrónicos o cachimba : ¿Con qué frecuencia utiliza dispositivos como cigarrillos electrónicos o cachimba?'
+    ].map(map_tobacco_consumption)
+    
+    df['Drugs'] = df[
+        'Frecuencia de consumo de estupefacientes: ¿Con qué frecuencia consume sustancias psicoactivas?'
+    ].map(map_tobacco_consumption)
 
     # 3) Antecedentes familiares y estrés/ansiedad
     df['FamHyper']   = df[
@@ -201,6 +270,7 @@ if __name__ == '__main__':
         'Edad','Sexo_num','Diabetes','Hipertension','BMI','BMI_norm',
         'BP_systolic','LDL','HDL','Glucemia','Blood_sugar','HR_rest',
         'FamHyper','FamInfarct','Stress_pct','Anxiety_pct',
-        'Activity_min_wk','Alcohol_wk','Diet_q','SatFat_wk','Sugary_wk','Salt_wk'
+        'Activity_min_wk','Alcohol_wk','Diet_q','SatFat_wk','Sugary_wk','Salt_wk',
+        'Harmful_habits','Tobacco','Vaping','Drugs'
     ]]
     out.to_csv('variables_generadas.csv', index=False)
